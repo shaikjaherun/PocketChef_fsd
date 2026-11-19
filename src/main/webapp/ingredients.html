@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>PocketChef | Find Recipes</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family:
+                    "Segoe UI",
+                    Arial,
+                    sans-serif;
+
+            min-height: 100vh;
+
+            color: #263238;
+
+            background:
+                    radial-gradient(
+                            circle at 5% 25%,
+                            rgba(255, 183, 145, 0.32) 0,
+                            rgba(255, 183, 145, 0) 24%
+                    ),
+                    radial-gradient(
+                            circle at 95% 20%,
+                            rgba(255, 180, 205, 0.28) 0,
+                            rgba(255, 180, 205, 0) 28%
+                    ),
+                    radial-gradient(
+                            circle at 85% 88%,
+                            rgba(255, 205, 220, 0.30) 0,
+                            rgba(255, 205, 220, 0) 25%
+                    ),
+                    linear-gradient(
+                            135deg,
+                            #fff7f2,
+                            #fffaf8,
+                            #fff0ea
+                    );
+
+            background-attachment: fixed;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            height: 72px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 55px;
+
+            border-bottom:
+                    1px solid rgba(255, 112, 67, 0.12);
+
+            box-shadow:
+                    0 4px 20px
+                    rgba(0, 0, 0, 0.05);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 10;
+        }
+
+        .logo {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 27px;
+
+            font-weight: 800;
+
+            color: #ff7043;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #ff7043,
+                            #ff9a76
+                    );
+
+            color: white;
+
+            font-size: 22px;
+
+            box-shadow:
+                    0 6px 15px
+                    rgba(255, 112, 67, 0.23);
+        }
+
+        .header-links {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .header-link {
+            text-decoration: none;
+
+            color: #667085;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            padding: 10px 14px;
+
+            border-radius: 9px;
+
+            transition:
+                    background 0.2s,
+                    color 0.2s;
+        }
+
+        .header-link:hover {
+            background: #fff0ea;
+
+            color: #ff7043;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: 92%;
+
+            max-width: 1050px;
+
+            margin: auto;
+
+            padding: 42px 0 50px;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+        .hero-icon {
+            width: 65px;
+            height: 65px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 20px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #fff0ea,
+                            #fff8f5
+                    );
+
+            font-size: 34px;
+
+            margin-bottom: 15px;
+
+            box-shadow:
+                    0 8px 20px
+                    rgba(255, 112, 67, 0.08);
+        }
+
+        .hero h1 {
+            font-size: 34px;
+
+            margin-bottom: 8px;
+
+            color: #263238;
+        }
+
+        .hero h1 span {
+            color: #ff7043;
+        }
+
+        .hero p {
+            color: #7a7f87;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ================= FORM ================= */
+
+        .recipe-form {
+            background: rgba(255, 255, 255, 0.97);
+
+            border-radius: 24px;
+
+            padding: 35px;
+
+            box-shadow:
+                    0 15px 40px
+                    rgba(38, 50, 56, 0.08);
+
+            border:
+                    1px solid
+                    rgba(255, 112, 67, 0.08);
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            margin-bottom: 7px;
+
+            color: #263238;
+        }
+
+        .section-description {
+            color: #8a8f96;
+
+            font-size: 13px;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* ================= INGREDIENT GRID ================= */
+
+        .ingredients-grid {
+            display: grid;
+
+            grid-template-columns:
+                    repeat(4, 1fr);
+
+            gap: 12px;
+        }
+
+        .ingredient {
+            position: relative;
+        }
+
+        .ingredient input {
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+        .ingredient label {
+            min-height: 65px;
+
+            padding: 12px;
+
+            border:
+                    1px solid #e6e6e6;
+
+            border-radius: 14px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            background: #fff;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #4b5563;
+
+            transition:
+                    all 0.2s ease;
+        }
+
+        .ingredient label:hover {
+            border-color: #ff9a76;
+
+            background: #fff8f5;
+
+            transform:
+                    translateY(-2px);
+        }
+
+        .ingredient input:checked + label {
+            background:
+                    linear-gradient(
+                            135deg,
+                            #fff0ea,
+                            #ffe4da
+                    );
+
+            border-color: #ff7043;
+
+            color: #ff5722;
+
+            box-shadow:
+                    0 5px 15px
+                    rgba(255, 112, 67, 0.12);
+        }
+
+
+        /* ================= OPTIONS ================= */
+
+        .options-grid {
+            display: grid;
+
+            grid-template-columns:
+                    1fr 1fr;
+
+            gap: 25px;
+        }
+
+        .option-box {
+            background: #fafafa;
+
+            border:
+                    1px solid #eeeeee;
+
+            border-radius: 17px;
+
+            padding: 22px;
+        }
+
+        .option-title {
+            font-size: 15px;
+
+            font-weight: 700;
+
+            margin-bottom: 15px;
+
+            color: #37474f;
+        }
+
+        .radio-group {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+        }
+
+        .radio-option {
+            position: relative;
+        }
+
+        .radio-option input {
+            position: absolute;
+
+            opacity: 0;
+        }
+
+        .radio-option label {
+            display: block;
+
+            padding: 10px 15px;
+
+            border:
+                    1px solid #ddd;
+
+            border-radius: 10px;
+
+            background: white;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #667085;
+
+            transition: all 0.2s;
+        }
+
+        .radio-option label:hover {
+            border-color: #ff9a76;
+
+            color: #ff7043;
+        }
+
+        .radio-option input:checked + label {
+            background: #ff7043;
+
+            border-color: #ff7043;
+
+            color: white;
+
+            box-shadow:
+                    0 5px 12px
+                    rgba(255, 112, 67, 0.2);
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        .submit-area {
+            text-align: center;
+
+            padding-top: 5px;
+        }
+
+        .find-button {
+            border: none;
+
+            padding: 15px 45px;
+
+            border-radius: 13px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #ff7043,
+                            #ff5722
+                    );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                    0 9px 22px
+                    rgba(255, 112, 67, 0.25);
+
+            transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+        }
+
+        .find-button:hover {
+            transform:
+                    translateY(-3px);
+
+            box-shadow:
+                    0 13px 28px
+                    rgba(255, 112, 67, 0.32);
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+
+            color: #92969c;
+
+            font-size: 13px;
+
+            padding: 10px 20px 30px;
+        }
+
+        footer span {
+            color: #ff7043;
+
+            font-weight: 600;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+
+            .ingredients-grid {
+                grid-template-columns:
+                        repeat(3, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            header {
+                padding: 0 20px;
+            }
+
+            .header-link {
+                display: none;
+            }
+
+            .container {
+                width: 94%;
+
+                padding-top: 30px;
+            }
+
+            .recipe-form {
+                padding: 22px;
+            }
+
+            .ingredients-grid {
+                grid-template-columns:
+                        repeat(2, 1fr);
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+        }
+
+        @media (max-width: 400px) {
+
+            .ingredients-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🍳
+        </div>
+
+        PocketChef
+
+    </div>
+
+
+    <div class="header-links">
+
+        <a href="dashboard.html"
+           class="header-link">
+
+            🏠 Dashboard
+
+        </a>
+
+        <a href="favorites"
+           class="header-link">
+
+            ❤️ Favorites
+
+        </a>
+
+        <a href="profile"
+           class="header-link">
+
+            👤 Profile
+
+        </a>
+
+        <a href="logout"
+           class="header-link">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+
+    <div class="hero">
+
+        <div class="hero-icon">
+            🥘
+        </div>
+
+        <h1>
+            Find Your <span>Perfect Recipe</span>
+        </h1>
+
+        <p>
+            Tell PocketChef what ingredients you have
+            and how you like to cook.
+        </p>
+
+    </div>
+
+
+    <form
+            action="recommend"
+            method="post"
+            class="recipe-form">
+
+
+        <!-- ================= INGREDIENTS ================= -->
+
+        <div class="section">
+
+            <div class="section-title">
+                🥕 Choose Your Ingredients
+            </div>
+
+            <div class="section-description">
+                Select the ingredients currently available
+                in your kitchen.
+            </div>
+
+
+            <div class="ingredients-grid">
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient1"
+                            name="ingredientIds"
+                            value="1">
+
+                    <label for="ingredient1">
+                        🍚 Rice
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient2"
+                            name="ingredientIds"
+                            value="2">
+
+                    <label for="ingredient2">
+                        🍗 Chicken
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient3"
+                            name="ingredientIds"
+                            value="3">
+
+                    <label for="ingredient3">
+                        🥚 Egg
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient4"
+                            name="ingredientIds"
+                            value="4">
+
+                    <label for="ingredient4">
+                        🧅 Onion
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient5"
+                            name="ingredientIds"
+                            value="5">
+
+                    <label for="ingredient5">
+                        🍅 Tomato
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient6"
+                            name="ingredientIds"
+                            value="6">
+
+                    <label for="ingredient6">
+                        🥔 Potato
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient7"
+                            name="ingredientIds"
+                            value="7">
+
+                    <label for="ingredient7">
+                        🥕 Carrot
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient8"
+                            name="ingredientIds"
+                            value="8">
+
+                    <label for="ingredient8">
+                        🫑 Capsicum
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient9"
+                            name="ingredientIds"
+                            value="9">
+
+                    <label for="ingredient9">
+                        🟢 Green Peas
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient10"
+                            name="ingredientIds"
+                            value="10">
+
+                    <label for="ingredient10">
+                        🧄 Garlic
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient11"
+                            name="ingredientIds"
+                            value="11">
+
+                    <label for="ingredient11">
+                        🫚 Ginger
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient12"
+                            name="ingredientIds"
+                            value="12">
+
+                    <label for="ingredient12">
+                        🌶️ Green Chilli
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient13"
+                            name="ingredientIds"
+                            value="13">
+
+                    <label for="ingredient13">
+                        🥛 Milk
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient14"
+                            name="ingredientIds"
+                            value="14">
+
+                    <label for="ingredient14">
+                        🍞 Bread
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient15"
+                            name="ingredientIds"
+                            value="15">
+
+                    <label for="ingredient15">
+                        🧀 Paneer
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient16"
+                            name="ingredientIds"
+                            value="16">
+
+                    <label for="ingredient16">
+                        🫗 Oil
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient17"
+                            name="ingredientIds"
+                            value="17">
+
+                    <label for="ingredient17">
+                        🧂 Salt
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient18"
+                            name="ingredientIds"
+                            value="18">
+
+                    <label for="ingredient18">
+                        🟡 Turmeric
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient19"
+                            name="ingredientIds"
+                            value="19">
+
+                    <label for="ingredient19">
+                        🌶️ Red Chilli Powder
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient20"
+                            name="ingredientIds"
+                            value="20">
+
+                    <label for="ingredient20">
+                        🧂 Garam Masala
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient21"
+                            name="ingredientIds"
+                            value="21">
+
+                    <label for="ingredient21">
+                        🌿 Cumin
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient22"
+                            name="ingredientIds"
+                            value="22">
+
+                    <label for="ingredient22">
+                        🌿 Coriander
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient23"
+                            name="ingredientIds"
+                            value="23">
+
+                    <label for="ingredient23">
+                        🍋 Lemon
+                    </label>
+
+                </div>
+
+
+                <div class="ingredient">
+
+                    <input
+                            type="checkbox"
+                            id="ingredient24"
+                            name="ingredientIds"
+                            value="24">
+
+                    <label for="ingredient24">
+                        🧈 Butter
+                    </label>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= OPTIONS ================= -->
+
+        <div class="options-grid">
+
+
+            <!-- COOKING TIME -->
+
+            <div class="option-box">
+
+                <div class="option-title">
+                    ⏱️ Cooking Time
+                </div>
+
+                <div class="radio-group">
+
+
+                    <div class="radio-option">
+
+                        <input
+                                type="radio"
+                                id="time10"
+                                name="cookingTime"
+                                value="10">
+
+                        <label for="time10">
+                            10 min
+                        </label>
+
+                    </div>
+
+
+                    <div class="radio-option">
+
+                        <input
+                                type="radio"
+                                id="time20"
+                                name="cookingTime"
+                                value="20">
+
+                        <label for="time20">
+                            20 min
+                        </label>
+
+                    </div>
+
+
+                    <div class="radio-option">
+
+                        <input
+                                type="radio"
+                                id="time30"
+                                name="cookingTime"
+                                value="30"
+                                checked>
+
+                        <label for="time30">
+                            30 min
+                        </label>
+
+                    </div>
+
+
+                    <div class="radio-option">
+
+                        <input
+                                type="radio"
+                                id="time40"
+                                name="cookingTime"
+                                value="40">
+
+                        <label for="time40">
+                            40 min
+                        </label>
+
+                    </div>
+
+
+                    <div class="radio-option">
+
+                        <input
+                                type="radio"
+                                id="time60"
+                                name="cookingTime"
+                                value="60">
+
+                        <label for="time60">
+                            60 min
+                        </label>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOD PREFERENCE -->
+
+            <div class="option-box">
+
+                <div class="option-title">
+                    🍽️ Food Preference
+                </div>
+
+                <div class="radio-group">
+
+
+                    <div class="radio-option">
+
+                        <input
+                                type="radio"
+                                id="any"
+                                name="foodPreference"
+                                value="Any"
+                                checked>
+
+                        <label for="any">
+                            Any
+                        </label>
+
+                    </div>
+
+
+                    <div class="radio-option">
+
+                        <input
+                                type="radio"
+                                id="vegetarian"
+                                name="foodPreference"
+                                value="Vegetarian">
+
+                        <label for="vegetarian">
+                            🥗 Vegetarian
+                        </label>
+
+                    </div>
+
+
+                    <div class="radio-option">
+
+                        <input
+                                type="radio"
+                                id="nonVegetarian"
+                                name="foodPreference"
+                                value="Non-Vegetarian">
+
+                        <label for="nonVegetarian">
+                            🍗 Non-Vegetarian
+                        </label>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================= SUBMIT ================= -->
+
+        <div class="submit-area">
+
+            <button
+                    type="submit"
+                    class="find-button">
+
+                🔎 Find My Recipes
+
+            </button>
+
+        </div>
+
+
+    </form>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    © 2026
+    <span>PocketChef</span>
+    &nbsp;|&nbsp;
+    Smart Recipe Recommendation System
+
+</footer>
+
+
+</body>
+
+</html>

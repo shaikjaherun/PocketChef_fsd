@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>PocketChef | Register</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family:
+                    "Segoe UI",
+                    Arial,
+                    sans-serif;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #263238;
+
+            background:
+                    radial-gradient(
+                            circle at 8% 25%,
+                            rgba(255, 183, 145, 0.32) 0,
+                            rgba(255, 183, 145, 0) 25%
+                    ),
+                    radial-gradient(
+                            circle at 92% 20%,
+                            rgba(255, 180, 205, 0.28) 0,
+                            rgba(255, 180, 205, 0) 28%
+                    ),
+                    radial-gradient(
+                            circle at 82% 90%,
+                            rgba(255, 205, 220, 0.30) 0,
+                            rgba(255, 205, 220, 0) 25%
+                    ),
+                    linear-gradient(
+                            135deg,
+                            #fff7f2,
+                            #fffaf8,
+                            #fff0ea
+                    );
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+
+            position: fixed;
+
+            width: 260px;
+            height: 260px;
+
+            left: -110px;
+            top: 120px;
+
+            background: rgba(255, 150, 110, 0.12);
+
+            border-radius: 50%;
+
+            filter: blur(5px);
+
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+
+            position: fixed;
+
+            width: 300px;
+            height: 300px;
+
+            right: -130px;
+            bottom: -100px;
+
+            background: rgba(255, 150, 190, 0.12);
+
+            border-radius: 50%;
+
+            filter: blur(8px);
+
+            pointer-events: none;
+        }
+
+        .register-container {
+            width: 430px;
+            max-width: 92%;
+
+            background:
+                    rgba(255,255,255,0.96);
+
+            padding: 40px 38px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                    0 20px 50px
+                    rgba(38,50,56,0.12);
+
+            text-align: center;
+
+            position: relative;
+            z-index: 2;
+
+            border:
+                    1px solid
+                    rgba(255,112,67,0.08);
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 16px;
+
+            border-radius: 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 38px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #ff7043,
+                            #ff9a76
+                    );
+
+            box-shadow:
+                    0 10px 25px
+                    rgba(255,112,67,0.25);
+        }
+
+        h1 {
+            color: #ff7043;
+
+            font-size: 30px;
+
+            margin-bottom: 7px;
+        }
+
+        .subtitle {
+            color: #7a7f87;
+
+            font-size: 14px;
+
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            text-align: left;
+
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #37474f;
+
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border: 1px solid #e0e0e0;
+
+            border-radius: 11px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                    border-color 0.2s,
+                    box-shadow 0.2s;
+        }
+
+        input:focus {
+            border-color: #ff7043;
+
+            box-shadow:
+                    0 0 0 3px
+                    rgba(255,112,67,0.10);
+        }
+
+        button {
+            width: 100%;
+
+            border: none;
+
+            padding: 14px;
+
+            border-radius: 11px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #ff7043,
+                            #ff5a36
+                    );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            margin-top: 6px;
+
+            box-shadow:
+                    0 8px 18px
+                    rgba(255,112,67,0.22);
+
+            transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                    0 12px 25px
+                    rgba(255,112,67,0.28);
+        }
+
+        .login-text {
+            margin-top: 24px;
+
+            font-size: 14px;
+
+            color: #777;
+        }
+
+        .login-text a {
+            color: #ff7043;
+
+            font-weight: 700;
+
+            text-decoration: none;
+        }
+
+        .login-text a:hover {
+            text-decoration: underline;
+        }
+
+        @media(max-width:500px) {
+
+            .register-container {
+                padding: 35px 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <div class="logo-icon">
+        🍳
+    </div>
+
+    <h1>
+        Create Account
+    </h1>
+
+    <p class="subtitle">
+        Start your smart cooking journey
+    </p>
+
+    <form action="register"
+          method="post">
+
+        <div class="form-group">
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    required>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    required>
+
+        </div>
+
+        <button type="submit">
+            Create Account
+        </button>
+
+    </form>
+
+    <div class="login-text">
+
+        Already have an account?
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
